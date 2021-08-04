@@ -4,7 +4,7 @@
   "description": "## Start application",
   "main": "index.ts",
   "scripts": {
-    "start": "nodemon index.ts",
+    "start": "npx ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,7 +20,6 @@
   "devDependencies": {
     "@types/express": "^4.17.13",
     "@types/node": "^16.4.12",
-    "nodemon": "^2.0.12",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5"
   },
