@@ -1,6 +1,6 @@
 import express from "express";
 import axios from "axios";
-import { PlayerStats } from "./interface";
+import { PlayerStats } from "./interfaces";
 import { trim } from "./utils/trim";
 
 const router = express();
