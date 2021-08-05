@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import "./App.css";
 
 export default function PlayerStats() {
@@ -17,7 +18,34 @@ export default function PlayerStats() {
 
   return (
     <>
-      <header></header>
+      <header>
+        <Formik
+          initialValues={{ playerName: "", sorting: "" }}
+          onSubmit={(data, { setSubmitting }) => {
+            setSubmitting(true);
+            console.log(data);
+            setSubmitting(false);
+          }}
+        >
+          {({ values, isSubmitting, handleSubmit }) => (
+            <Form>
+              <Field name="playerName" type="input" placeholder="Player name" />
+              OR
+              {1}
+              <Field name="sorting" type="radio" value="1" />
+              {2}
+              <Field name="sorting" type="radio" value="2" />
+              {3}
+              <Field name="sorting" type="radio" value="3" />
+              <ErrorMessage name="name" component="div" />
+              <button type="submit" disabled={isSubmitting}>
+                Submit
+              </button>
+              <pre>{JSON.stringify(values, null, 2)}</pre>
+            </Form>
+          )}
+        </Formik>
+      </header>
       <main>
         {loading && <p>Player stats loading . . .</p>}
         {playerStats.map((x, index) => (
