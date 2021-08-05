@@ -2,10 +2,12 @@ import express from "express";
 import axios from "axios";
 import { PlayerStats } from "./interfaces";
 import { trim } from "./utils/trim";
+import cors from "cors";
 
 const router = express();
 router.use(express.json());
-const port = 3000;
+router.use(cors());
+const port = 3001;
 require("dotenv/config");
 
 router.listen(port, () => {

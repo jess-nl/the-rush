@@ -1,0 +1,27 @@
+header {
+  position: fixed;
+  width: 100%;
+  height: 300px;
+  top: 0;
+  background-color: white;
+  border-bottom: 1px solid black;
+}
+
+main {
+  margin-top: 330px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 1.8em;
+}
+
+div.grid-container {
+  display: grid;
+  grid-template-columns: 150px 150px;
+  gap: 15px;
+  border-bottom: #000 solid 1px;
+  padding-bottom: 30px;
+}
