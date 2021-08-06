@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
@@ -10,9 +11,10 @@ import {
   FormControlLabel,
   FormLabel,
 } from "@material-ui/core";
-import "./css/App.css";
+import "./styles/App.css";
+import { PlayerStats, Params } from "./interfaces";
 
-export default function PlayerStats() {
+export default function PlayerStatsComponent() {
   const [playerStats, setPlayerStats] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -98,7 +100,7 @@ export default function PlayerStats() {
             }}
           >
             {({ isSubmitting }) => (
-              <Form as={RadioGroup}>
+              <Form>
                 <FormLabel component="legend">Sort by</FormLabel>
                 <RadioGroup>
                   <FormControlLabel
@@ -134,8 +136,8 @@ export default function PlayerStats() {
       </header>
 
       <main>
-        {playerStats.map((x, index) => (
-          <div class="grid-container" key={index}>
+        {playerStats.map((x: PlayerStats, index) => (
+          <div className="grid-container" key={index}>
             <div>
               <h1>{x.Player}</h1>
             </div>
