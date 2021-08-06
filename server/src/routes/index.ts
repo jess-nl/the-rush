@@ -16,7 +16,8 @@ router.get(`/api/v1/therush`, async (req, res) => {
 
       if (playerName) {
         const singlePlayer = data.filter(
-          (x: PlayerStats) => x.Player === playerName
+          (x: PlayerStats) =>
+            x.Player.toLowerCase() === playerName.toString().toLowerCase()
         );
         res.send(singlePlayer);
         return;
