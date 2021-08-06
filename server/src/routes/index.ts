@@ -4,7 +4,7 @@ import { PlayerStats } from "../interfaces";
 import { trim } from "../utils/trim";
 
 const router = express();
-require("dotenv/config");
+require("dotenv").config({ path: require("find-config")(".env") });
 
 router.get(`/api/v1/therush`, async (req, res) => {
   const { playerName, sorting } = req.query;

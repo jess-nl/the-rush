@@ -8,13 +8,15 @@ Create a sports web app:
 
 ## Start application
 
-1. Ensure to have provided required environment variables (**.env**). Let's begin by running the B-E.
-2. `npm install`
-3. `npm run start`
-4. Open a new terminal window. This time we'll run the F-E.
-5. `cd client`
-6. `npm install`
-7. `npm run start`
+1. Ensure to have provided required environment variables (**.env**). Place it in the root folder.
+2. Let's begin by running the B-E like so:
+
+    `cd server && npm install && npm run start`
+
+3. Open a new terminal window. 
+4. This time we'll run the F-E:
+
+    `cd client && npm install && npm run start`
 
 ## Author 
 Jess N-L
