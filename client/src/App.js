@@ -1,6 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
+import {
+  TextField,
+  Button,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormLabel,
+} from "@material-ui/core";
 import "./App.css";
 
 export default function PlayerStats() {
@@ -22,35 +30,103 @@ export default function PlayerStats() {
   return (
     <>
       <header>
-        <Formik
-          initialValues={{ playerName: "", sorting: "" }}
-          onSubmit={(params, { setSubmitting }) => {
-            setSubmitting(true);
-            pingAPI(params);
-            setSubmitting(false);
-          }}
-        >
-          {({ values, isSubmitting }) => (
-            <Form>
-              <Field name="playerName" type="input" placeholder="Player name" />
-              <ErrorMessage name="playerName" component="div" />
-              OR
-              {1}
-              <Field name="sorting" type="radio" value="1" />
-              {2}
-              <Field name="sorting" type="radio" value="2" />
-              {3}
-              <Field name="sorting" type="radio" value="3" />
-              <button type="submit" disabled={isSubmitting}>
-                Submit
-              </button>
-              <pre>{JSON.stringify(values, null, 2)}</pre>
-            </Form>
-          )}
-        </Formik>
+        <h1>THE RUSH</h1>
+        <div className="center">
+          <Formik
+            initialValues={{}}
+            onSubmit={(params, { setSubmitting }) => {
+              setSubmitting(true);
+              pingAPI(params);
+              setSubmitting(false);
+            }}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  variant="outlined"
+                  size="large"
+                >
+                  Display all players stats
+                </Button>
+              </Form>
+            )}
+          </Formik>
+
+          <Formik
+            initialValues={{ playerName: "" }}
+            onSubmit={(params, { setSubmitting }) => {
+              setSubmitting(true);
+              pingAPI(params);
+              setSubmitting(false);
+            }}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <Field
+                  name="playerName"
+                  type="input"
+                  placeholder="Display a player stats"
+                  as={TextField}
+                />
+                <ErrorMessage name="playerName" component="div" />{" "}
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  variant="outlined"
+                >
+                  Submit
+                </Button>
+              </Form>
+            )}
+          </Formik>
+
+          <Formik
+            initialValues={{ sorting: "" }}
+            onSubmit={(params, { setSubmitting }) => {
+              setSubmitting(true);
+              pingAPI(params);
+              setSubmitting(false);
+            }}
+          >
+            {({ isSubmitting }) => (
+              <Form as={RadioGroup}>
+                <FormLabel component="legend">Sort by</FormLabel>
+                <RadioGroup>
+                  <FormControlLabel
+                    control={
+                      <Field name="sorting" type="radio" value="1" as={Radio} />
+                    }
+                    label="Total Rushing Yards"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Field name="sorting" type="radio" value="2" as={Radio} />
+                    }
+                    label="Longest Rush"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Field name="sorting" type="radio" value="3" as={Radio} />
+                    }
+                    label="Total Rushing Touchdowns"
+                  />
+                </RadioGroup>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  variant="outlined"
+                >
+                  Submit
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </div>
       </header>
+
       <main>
-        {loading && <p>Player stats loading . . .</p>}
         {playerStats.map((x, index) => (
           <div class="grid-container" key={index}>
             <div>

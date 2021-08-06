@@ -33,18 +33,18 @@ router.get(`/api/v1/therush`, async (req, res) => {
       if (selectedSort === 1) {
         res.send(
           data.sort(
-            (a: PlayerStats, b: PlayerStats) => trim(a.Yds) - trim(b.Yds)
+            (a: PlayerStats, b: PlayerStats) => trim(b.Yds) - trim(a.Yds)
           )
         );
       } else if (selectedSort === 2) {
         res.send(
           data.sort(
-            (a: PlayerStats, b: PlayerStats) => trim(a.Lng) - trim(b.Lng)
+            (a: PlayerStats, b: PlayerStats) => trim(b.Lng) - trim(a.Lng)
           )
         );
       } else if (selectedSort === 3) {
         res.send(
-          data.sort((a: PlayerStats, b: PlayerStats) => trim(a.TD) - trim(b.TD))
+          data.sort((a: PlayerStats, b: PlayerStats) => trim(b.TD) - trim(a.TD))
         );
       } else {
         res.send(data);
