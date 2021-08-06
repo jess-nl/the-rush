@@ -1,0 +1,42 @@
+{
+	"info": {
+		"_postman_id": "9ccdbda2-95ff-4bc1-ae40-82abbb868c73",
+		"name": "The Rush",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/v1/therush",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"therush"
+					],
+					"query": [
+						{
+							"key": "playerName",
+							"value": "DeMarco Murray",
+							"disabled": true
+						},
+						{
+							"key": "sorting",
+							"value": "2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
