@@ -1,35 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import axios from "axios";
 import "./App.css";
 
 export default function PlayerStats() {
   const [playerStats, setPlayerStats] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch(`http://localhost:3001/api/v1/therush`)
-      .then((res) => res.json())
-      .then((data) => {
-        setPlayerStats(data);
+  const pingAPI = (params) => {
+    axios
+      .get(`http://localhost:3001/api/v1/therush`, { params })
+      .then((res) => {
+        setPlayerStats(res.data);
         setLoading(false);
       })
-      .catch((e) => console.log(e));
-  }, []);
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <>
       <header>
         <Formik
           initialValues={{ playerName: "", sorting: "" }}
-          onSubmit={(data, { setSubmitting }) => {
+          onSubmit={(params, { setSubmitting }) => {
             setSubmitting(true);
-            console.log(data);
+            pingAPI(params);
             setSubmitting(false);
           }}
         >
-          {({ values, isSubmitting, handleSubmit }) => (
+          {({ values, isSubmitting }) => (
             <Form>
               <Field name="playerName" type="input" placeholder="Player name" />
+              <ErrorMessage name="playerName" component="div" />
               OR
               {1}
               <Field name="sorting" type="radio" value="1" />
@@ -37,7 +41,6 @@ export default function PlayerStats() {
               <Field name="sorting" type="radio" value="2" />
               {3}
               <Field name="sorting" type="radio" value="3" />
-              <ErrorMessage name="name" component="div" />
               <button type="submit" disabled={isSubmitting}>
                 Submit
               </button>
