@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
+import { CSVLink } from "react-csv";
 import {
   TextField,
   Button,
@@ -31,6 +32,12 @@ export default function PlayerStats() {
     <>
       <header>
         <h1>THE RUSH</h1>
+        <div className="title-csv">
+          <CSVLink data={playerStats} filename={"therush-playerstats.csv"}>
+            {!loading && <Button variant="outlined">Download as CSV</Button>}
+          </CSVLink>
+        </div>
+
         <div className="center">
           <Formik
             initialValues={{}}
