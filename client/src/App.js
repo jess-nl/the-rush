@@ -10,7 +10,7 @@ import {
   FormControlLabel,
   FormLabel,
 } from "@material-ui/core";
-import "./App.css";
+import "./css/App.css";
 
 export default function PlayerStats() {
   const [playerStats, setPlayerStats] = useState([]);
