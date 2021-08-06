@@ -1,58 +1,37 @@
-import express from "express";
-import axios from "axios";
-import { PlayerStats } from "./interfaces";
-import { trim } from "./utils/trim";
+import express, { NextFunction, Request, Response } from "express";
+import createError, { HttpError } from "http-errors";
 import cors from "cors";
 
-const router = express();
-router.use(express.json());
-router.use(cors());
+const app = express();
 const port = 3001;
 require("dotenv/config");
+const theRushApi = require("./routes/index");
 
-router.listen(port, () => {
+app.use(express.json());
+app.use(cors());
+app.use("/", theRushApi);
+
+app.listen(port, () => {
   console.log(`Listening at ${port}`);
 });
 
-router.get(`/api/v1/therush`, async (req, res) => {
-  const { playerName, sorting } = req.query;
-  const selectedSort = Number(sorting);
+// catch 404 and forward to error handler
+app.use(function (req: Request, res: Response, next: NextFunction) {
+  next(createError(404));
+});
 
-  try {
-    await axios.get(process.env.THERUSH_URL as string).then((resp) => {
-      const { data } = resp;
+// error handler
+app.use(function (
+  err: HttpError,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
-      if (playerName) {
-        const singlePlayer = data.filter(
-          (x: PlayerStats) => x.Player === playerName
-        );
-        res.send(singlePlayer);
-        return;
-      }
-
-      if (selectedSort === 1) {
-        res.send(
-          data.sort(
-            (a: PlayerStats, b: PlayerStats) => trim(b.Yds) - trim(a.Yds)
-          )
-        );
-      } else if (selectedSort === 2) {
-        res.send(
-          data.sort(
-            (a: PlayerStats, b: PlayerStats) => trim(b.Lng) - trim(a.Lng)
-          )
-        );
-      } else if (selectedSort === 3) {
-        res.send(
-          data.sort((a: PlayerStats, b: PlayerStats) => trim(b.TD) - trim(a.TD))
-        );
-      } else {
-        res.send(data);
-        return;
-      }
-    });
-  } catch (e) {
-    console.log(e);
-    res.status(e.status || 500).send({ ...e, message: e?.message });
-  }
+  // render the error page
+  res.status(err.status || 500);
+  res.render("error");
 });
