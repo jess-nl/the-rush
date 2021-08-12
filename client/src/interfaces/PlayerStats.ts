@@ -1,4 +1,4 @@
-export interface PlayerStats {
+export default interface PlayerStats {
   Player: string;
   Team: string;
   Pos: string;
