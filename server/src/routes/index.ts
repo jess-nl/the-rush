@@ -1,7 +1,11 @@
 import express from "express";
 import axios from "axios";
-import { PlayerStats } from "../interfaces";
-import { trim } from "../utils/trim";
+import {
+  filterByPlayer,
+  sortPlayerByLng,
+  sortPlayerByTD,
+  sortPlayerByYds,
+} from "../repositories";
 
 const router = express();
 require("dotenv").config({ path: require("find-config")(".env") });
@@ -15,30 +19,16 @@ router.get(`/api/v1/therush`, async (req, res) => {
       const { data } = resp;
 
       if (playerName) {
-        const singlePlayer = data.filter(
-          (x: PlayerStats) =>
-            x.Player.toLowerCase() === playerName.toString().toLowerCase()
-        );
-        res.send(singlePlayer);
+        res.send(filterByPlayer(data, playerName as string));
         return;
       }
 
       if (selectedSort === 1) {
-        res.send(
-          data.sort(
-            (a: PlayerStats, b: PlayerStats) => trim(b.Yds) - trim(a.Yds)
-          )
-        );
+        res.send(sortPlayerByYds(data));
       } else if (selectedSort === 2) {
-        res.send(
-          data.sort(
-            (a: PlayerStats, b: PlayerStats) => trim(b.Lng) - trim(a.Lng)
-          )
-        );
+        res.send(sortPlayerByLng(data));
       } else if (selectedSort === 3) {
-        res.send(
-          data.sort((a: PlayerStats, b: PlayerStats) => trim(b.TD) - trim(a.TD))
-        );
+        res.send(sortPlayerByTD(data));
       } else {
         res.send(data);
         return;
