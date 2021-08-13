@@ -2,24 +2,19 @@ import { PlayerStats } from "../interfaces";
 import { trim } from "../utils/trim";
 
 export const filterByPlayer = (data: PlayerStats[], playerName: string) => {
-  return data.filter(
-    (x: PlayerStats) =>
-      x.Player.toLowerCase() === playerName.toString().toLowerCase()
-  );
+  const selectedName = playerName.toString().toLowerCase();
+
+  return data.filter((x: PlayerStats) => {
+    if (selectedName.split(" ").length > 1) {
+      return x.Player.toLowerCase() === selectedName;
+    } else {
+      return x.Player.toLowerCase().split(" ").includes(selectedName);
+    }
+  });
 };
 
-export const sortPlayerByYds = (data: PlayerStats[]) => {
+export const sortPlayer = (data: PlayerStats[], index: keyof PlayerStats) => {
   return data.sort(
-    (a: PlayerStats, b: PlayerStats) => trim(b.Yds) - trim(a.Yds)
+    (a: PlayerStats, b: PlayerStats) => trim(b[index]) - trim(a[index])
   );
-};
-
-export const sortPlayerByLng = (data: PlayerStats[]) => {
-  return data.sort(
-    (a: PlayerStats, b: PlayerStats) => trim(b.Lng) - trim(a.Lng)
-  );
-};
-
-export const sortPlayerByTD = (data: PlayerStats[]) => {
-  return data.sort((a: PlayerStats, b: PlayerStats) => trim(b.TD) - trim(a.TD));
 };

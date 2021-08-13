@@ -1,11 +1,6 @@
 import express from "express";
 import axios from "axios";
-import {
-  filterByPlayer,
-  sortPlayerByLng,
-  sortPlayerByTD,
-  sortPlayerByYds,
-} from "../repositories";
+import { filterByPlayer, sortPlayer } from "../repositories";
 
 const router = express();
 require("dotenv").config({ path: require("find-config")(".env") });
@@ -24,11 +19,11 @@ router.get(`/api/v1/therush`, async (req, res) => {
       }
 
       if (selectedSort === 1) {
-        res.send(sortPlayerByYds(data));
+        res.send(sortPlayer(data, "Yds"));
       } else if (selectedSort === 2) {
-        res.send(sortPlayerByLng(data));
+        res.send(sortPlayer(data, "Lng"));
       } else if (selectedSort === 3) {
-        res.send(sortPlayerByTD(data));
+        res.send(sortPlayer(data, "TD"));
       } else {
         res.send(data);
         return;
