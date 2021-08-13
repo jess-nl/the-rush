@@ -2,7 +2,7 @@ import { PlayerStats } from "../interfaces";
 import { trim } from "../utils/trim";
 
 export const filterByPlayer = (data: PlayerStats[], playerName: string) => {
-  const selectedName = playerName.toString().toLowerCase();
+  const selectedName = playerName.toString().toLowerCase().trim();
 
   return data.filter((x: PlayerStats) => {
     if (selectedName.split(" ").length > 1) {
