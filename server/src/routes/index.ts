@@ -14,23 +14,23 @@ router.get(`/api/v1/therush`, async (req, res) => {
       const { data } = resp;
 
       if (playerName) {
-        res.send(filterByPlayer(data, playerName as string));
+        res.status(200).send(filterByPlayer(data, playerName as string));
         return;
       }
 
       if (selectedSort === 1) {
-        res.send(sortPlayer(data, "Yds"));
+        res.status(200).send(sortPlayer(data, "Yds"));
       } else if (selectedSort === 2) {
-        res.send(sortPlayer(data, "Lng"));
+        res.status(200).send(sortPlayer(data, "Lng"));
       } else if (selectedSort === 3) {
-        res.send(sortPlayer(data, "TD"));
+        res.status(200).send(sortPlayer(data, "TD"));
       } else {
-        res.send(data);
+        res.status(200).send(data);
         return;
       }
     });
   } catch (e) {
-    console.log(e);
+    console.error(e);
     res.status(e.status || 500).send({ ...e, message: e?.message });
   }
 });
